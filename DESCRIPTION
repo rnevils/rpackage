@@ -2,11 +2,19 @@ Package: rpackage
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    c(person(given = "Ryan",
+           family = "Nevils",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "ryan.nevils21@gmail.com"),
+      person(given = "Cady",
+           family = "Heron",
+           role = c("aut", "cre"),
+           email = "first.last@example.com"),
+      person(given = "Cady",
+           family = "Heron",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+           )
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
