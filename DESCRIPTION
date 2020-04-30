@@ -10,10 +10,10 @@ Authors@R:
            family = "Rhen",
            role = c("aut", "cre"),
            email = "sadierhen@gmail.com"),
-      person(given = "Cady",
-           family = "Heron",
+      person(given = "Allie",
+           family = "Blaising",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
+           email = "allieblaising@gmail.com")
            )
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
