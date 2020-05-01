@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_top_videos.R
 \name{get_top_videos}
 \alias{get_top_videos}
-\title{Makes data frame of top YouTube videos}
+\title{Makes data frame of most currently popular YouTube videos}
 \usage{
 get_top_videos(key, region = "US", category = 0, n = 10, simple = T)
 }
@@ -13,13 +13,13 @@ get_top_videos(key, region = "US", category = 0, n = 10, simple = T)
 
 \item{category}{Video category. Default is 0 (no category, top videos overall). Run get_category_list() to see list of YouTube content categories.}
 
-\item{n}{Number of results returned. Default is 10. Can be between 1 and 50.}
+\item{n}{Number of top videos to return. Default is 10. Can be between 1 and 200.}
 
 \item{simple}{Returns a simplified data frame if TRUE (default). Returns all data from API if FALSE.}
 }
 \value{
-A data frame of the top trending videos on YouTube
+A data frame of the most currently popular videos on YouTube
 }
 \description{
-Makes data frame of top YouTube videos
+Makes data frame of most currently popular YouTube videos
 }
