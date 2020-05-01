@@ -1,3 +1,23 @@
+#' Determine if user is providing a valid API key and video ID
+#'
+#' @param api_key The Youtube API key
+#' @param video_id ID of youtube video
+#'
+#' @return A status code of the API call
+#'
+#' @importFrom httr GET
+#' @importFrom jsonlite fromJSON
+#'
+#' @export
+valid_api_call <- function(api_key, video_id) {
+  base <- 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&textFormat=plainText&videoId='
+  request <- paste0(base, video_id, "&key=", api_key)
+  res = GET(request)
+
+  return(res$status_code)
+}
+
+
 #' Access the youtube API to get a list of comments from a video.
 #'
 #' @param api_key The Youtube API key
@@ -10,6 +30,10 @@
 #' @importFrom stringr str_detect str_to_title
 #' @importFrom english as.english
 get_comments <- function(api_key, video_id) {
+  stopifnot(valid_api_call(api_key, video_id) == 200)
+
+
+
   base <- 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&textFormat=plainText&videoId='
   request <- paste0(base, video_id, "&key=", api_key)
   res = GET(request)
