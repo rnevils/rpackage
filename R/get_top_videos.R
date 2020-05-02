@@ -6,7 +6,7 @@
 #'
 #' @return A bar graph of the most currently popular YouTube Videos by content category
 #'
-#' @importFrom ggplot2 ggplot geom_bar labs coord_flip theme
+#' @importFrom ggplot2 ggplot geom_bar labs coord_flip theme aes element_blank element_rect element_line
 #'
 #' @export
 graph_top_videos_category <- function(key, region = "US", n = "10"){
@@ -35,7 +35,7 @@ graph_top_videos_category <- function(key, region = "US", n = "10"){
 #'
 #' @return A data frame of the most currently popular videos on YouTube
 #'
-#' @importFrom dplyr top_n
+#' @importFrom dplyr select mutate left_join
 #'
 #' @export
 get_top_videos <- function(key, region = "US", category = 0, n = 10, simple = T){
@@ -137,6 +137,8 @@ validate_category <- function(key, region, category){
 #'
 #' @param data Nested data table pulled from YouTube API
 #'
+#' @importFrom dplyr rename select
+#'
 #' @return A clean data frame of the top YouTube videos
 clean_top_videos <- function(data){
   snip <- data$snippet
@@ -187,11 +189,21 @@ category_to_id <- function(key, category, region = "US"){
 #'
 #' @return A data frame of YouTube content categories and their ids
 #'
+#' @importFrom dplyr rename select
+#'
 #' @export
 get_category_list <- function(key, region = "US"){
+  if (validate_region(key, region) == "invalid"){
+    stop("Invalid region. See get_region_list() for list of acceptable regions.")
+  }
   region_id <- ifelse(nchar(region) != 2, region_to_id(key, region), region)
   res <- GET(paste0("https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=", region_id, "&key=", key))
   data <- fromJSON(rawToChar(res$content))
+  if(is.null(data$error$errors$reason) == F){
+    if(data$error$errors$reason == "keyInvalid"){
+      stop("API key is invalid")
+    }
+  }
   cats <- data$items
   snip <- cats$snippet
   cats <- cats %>%
@@ -200,6 +212,7 @@ get_category_list <- function(key, region = "US"){
     rename(category = title, categoryId = id)
   return(cats)
 }
+
 
 #' Converts region to YouTube id
 #'
@@ -220,12 +233,17 @@ region_to_id <- function(key, region){
 #'
 #' @importFrom httr GET
 #' @importFrom jsonlite fromJSON
-#'
+#' @importFrom dplyr rename
 #'
 #' @export
 get_region_list <- function(key){
   res <- GET(paste0("https://www.googleapis.com/youtube/v3/i18nRegions?part=snippet&key=", key))
   data <- fromJSON(rawToChar(res$content))
+  if(is.null(data$error$errors$reason) == F){
+    if(data$error$errors$reason == "keyInvalid"){
+      stop("API key is invalid")
+    }
+  }
   regions <- data$items$snippet %>%
     rename(region = name, regionId = gl)
   return(regions)
