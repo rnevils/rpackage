@@ -1,4 +1,4 @@
-Package: rpackage
+Package: YouRtube
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
@@ -15,7 +15,11 @@ Authors@R:
            role = c("aut"),
            email = "allieblaising@gmail.com")
            )
-Description: What the package does (one paragraph).
+Description: This package uses the YouTube API to conveniently access, clean and analyze attributes of 
+  200 of the most popular YouTube videos. This enables YouTube creators to easily query and study 
+  trends among the most popular videos (such as titles, genres, comments) and implement data-driven insights 
+  to improve future production and marketing efforts. 
+
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
