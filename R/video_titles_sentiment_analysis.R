@@ -5,6 +5,11 @@
 #'
 #' @return A plot of the number of words that contribute to different sentiments for the top 200 YouTube titles
 #'
+#' @importFrom dplyr inner_join group_by summarise ungroup mutate
+#' @importFrom tidytext unnest_tokens get_stopwords get_sentiments
+#' @importFrom dplyr anti_join
+#' @importFrom ggplot2 scale_y_continuous guides
+#'
 #' @export
 
 titles_sentiment_type_nrc <- function(api_key){
@@ -35,6 +40,7 @@ titles_sentiment_type_nrc <- function(api_key){
 #'
 #' @return A plot of top 10 words that contribute to positive and negative sentiment in the top 200 YouTube titles
 #'
+#' @importFrom ggplot2 ggplot geom_bar geom_col labs coord_flip theme aes element_blank element_rect element_line coord_flip facet_wrap
 #'
 #' @export
 
