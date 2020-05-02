@@ -1,5 +1,5 @@
-Package:YouRtube
-Title:Analyzes Attributes of the Current Most Popular YouTube Videos
+Package: youRtube
+Title: Analyzes Attributes of the Current Most Popular YouTube Videos
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Ryan",
