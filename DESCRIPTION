@@ -27,4 +27,18 @@ RoxygenNote: 7.1.0
 Suggests: 
     testthat
 Imports: 
-    magrittr
+    tidyverse,
+    usethis,  
+    magrittr, 
+    testthat, 
+    dplyr, 
+    english, 
+    ggplot2, 
+    httr, 
+    jsonlite, 
+    stringr,
+    tibble,  
+    tidytext, 
+    wordcloud, 
+    wordcloud2
+    
