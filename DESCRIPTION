@@ -1,5 +1,5 @@
 Package: YouRtube
-Title: What the Package Does (One Line, Title Case)
+Title: Analyzes Attributes of the Current Most Popular YouTube Videos
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Ryan",
@@ -15,10 +15,10 @@ Authors@R:
            role = c("aut"),
            email = "allieblaising@gmail.com")
            )
-Description: This package uses the YouTube API to conveniently access, clean and analyze attributes of 
-  200 of the most popular YouTube videos. This enables YouTube creators to easily query and study 
-  trends among the most popular videos (such as titles, genres, comments) and implement data-driven insights 
-  to improve future production and marketing efforts. 
+Description:  This package uses the YouTube API to conveniently access, clean, analyze and visualize attributes of the current most popular YouTube videos and comments for a specific video. 
+            This enables YouTube both video creators and non-creators to easily query and study trends among the most popular videos (such as titles, genres, comments). 
+            For creators, this insight can lead to data-driven decisions to improve future production and marketing efforts for their YouTube channel. 
+
 
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
