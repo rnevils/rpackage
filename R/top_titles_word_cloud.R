@@ -77,7 +77,7 @@ get_tidy_titles <- function(titles) {
   tidy_titles <- titles %>%
   tibble(titles) %>%
   unnest_tokens(word, titles) %>% #Break the titles into individual words
-  filter(!nchar(word) < 3) %>% #Words like "ah" or "oo" used in music
+  #filter(!nchar(word) < 3) %>% #Words like "ah" or "oo" used in music
   anti_join(stop_words) #Data provided by the tidytext package
   return(tidy_titles)
 }

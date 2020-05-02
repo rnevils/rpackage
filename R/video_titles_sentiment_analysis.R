@@ -8,9 +8,9 @@
 #' @export
 
 titles_sentiment_type_nrc <- function(api_key){
-  top_titles <- get_top_titles(api_key) %>%
-  tidy_titles <- get_tidy_titles(top_titles) %>%
-    nrc_plot <- tidy_titles %>%
+  top_titles <- get_top_titles(api_key)
+  tidy_titles <- get_tidy_titles(top_titles)
+  nrc_plot <- tidy_titles %>%
       inner_join(get_sentiments("nrc")) %>%
       group_by(sentiment) %>%
       summarise(word_count = n()) %>%
@@ -39,6 +39,8 @@ titles_sentiment_type_nrc <- function(api_key){
 #' @export
 
 titles_sentiment_contribution_bing <- function(api_key){
+  top_titles <- get_top_titles(api_key)
+  tidy_titles <- get_tidy_titles(top_titles)
   bing_word_counts <- tidy_titles  %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment, sort = TRUE) %>%
