@@ -1,4 +1,22 @@
-#' Creates and returns a word cloud of 50 of the titles on YouTube's most popular videos
+#' Determines if user is providing a valid API key
+#'
+#' @param api_key The Youtube API key
+#'
+#' @return A status code of the API call
+#'
+#' @importFrom httr GET
+#' @importFrom jsonlite fromJSON
+#'
+#' @export
+
+valid_api_call <- function(api_key) {
+  base <- "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=50&key="
+  request <- paste0(base, api_key)
+  res = GET(request)
+  return(res$status_code)
+}
+
+#' Creates and returns a word cloud of 200 of the titles on YouTube's most popular videos
 #'
 #' @param API_key A user's API key
 #' @param size The size of the title word cloud to be returned
@@ -7,7 +25,9 @@
 #'
 #' @return A word cloud using 200 of the titles from YouTube's most popular videos
 #'
-#'
+#' @importFrom httr GET
+#' @importFrom jsonlite fromJSON
+#' @importFrom wordcloud2 wordcloud2
 #' @export
 
 make_top_title_word_cloud <- function(api_key, size, color, shape){
@@ -23,10 +43,12 @@ make_top_title_word_cloud <- function(api_key, size, color, shape){
 #'
 #' @return A list of 200 titles from the most popular YouTube video pages
 #'
+#' @importFrom httr GET
+#' @importFrom jsonlite fromJSON
+#'
 #' @export
 
 get_top_titles <- function(api_key) {
-
   base_mostpopular_snippet <- "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=50&key="
   request_mostpopular_titles <- paste0(base_mostpopular_snippet, api_key)
 
@@ -72,13 +94,16 @@ get_top_titles <- function(api_key) {
 #' @param A list of YouTube videos titles to be cleaned
 #'
 #' @return A cleaned list of YouTube titles
+#'
+#' @importFrom dplyr anti_join
+#' @importFrom tibble tibble
+#' @importFrom tidytext unnest_tokens
 
 get_tidy_titles <- function(titles) {
   tidy_titles <- titles %>%
   tibble(titles) %>%
-  unnest_tokens(word, titles) %>% #Break the titles into individual words
-  #filter(!nchar(word) < 3) %>% #Words like "ah" or "oo" used in music
-  anti_join(stop_words) #Data provided by the tidytext package
+  unnest_tokens(word, titles) %>% # break the titles into individual words
+  anti_join(stop_words) # data provided by the tidytext package
   return(tidy_titles)
 }
 
