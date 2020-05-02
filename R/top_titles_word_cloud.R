@@ -11,11 +11,10 @@
 #' @export
 
 make_top_title_word_cloud <- function(api_key, size, color, shape){
-  top_50 <- get_top_titles(api_key)
-  top_50_cleaned <- clean_titles(top_50)
-  top_50_formatted <- format_titles(top_50_cleaned)
-  top_50_wordcloud <- wordcloud2(data=top_50_formatted, size=size, color=color, shape=shape)
-  return(top_50_wordcloud)
+  top_titles <- get_top_titles(api_key)
+  tidy_titles <- get_tidy_titles(top_titles)
+  top_titles_wordcloud <- wordcloud2(data=tidy_titles, size=size, color=color, shape=shape)
+  return(top_titles_wordcloud)
 }
 
 #' Returns a list of top YouTube videos
@@ -68,32 +67,18 @@ get_top_titles <- function(api_key) {
 }
 
 
-#' Cleans a list of YouTube video titles
+#' Creates a list of cleaned list of YouTube video titles for word cloud and sentiment analysis
 #'
 #' @param A list of YouTube videos titles to be cleaned
 #'
 #' @return A cleaned list of YouTube titles
 
-clean_titles <- function(titles) {
-  titles_df <- Corpus(VectorSource(titles))
-  tm_map(removeNumbers) %>%
-    tm_map(removePunctuation) %>%
-    tm_map(stripWhitespace)
-  clean_titles <- tm_map(titles, content_transformer(tolower))
-  clean_titles <- tm_map(titles, removeWords, stopwords("english"))
-  return(clean_titles)
+get_tidy_titles <- function(titles) {
+  tidy_titles <- titles %>%
+  tibble(titles) %>%
+  unnest_tokens(word, titles) %>% #Break the titles into individual words
+  filter(!nchar(word) < 3) %>% #Words like "ah" or "oo" used in music
+  anti_join(stop_words) #Data provided by the tidytext package
+  return(tidy_titles)
 }
 
-#' Formats a list of YouTube video titles to be
-#'
-#' @param A list of YouTube videos titles to be formatted for a word cloud
-#'
-#' @return A formatted titles dataframe
-
-format_titles <- function(clean_titles) {
-  dtm <- TermDocumentMatrix(clean_titles)
-  matrix <- as.matrix(dtm)
-  words <- sort(rowSums(matrix),decreasing=TRUE)
-  df <- data.frame(word = names(words),freq=words)
-  return(df)
-}
