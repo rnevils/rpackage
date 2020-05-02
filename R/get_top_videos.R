@@ -125,6 +125,7 @@ validate_region <- function(key, region){
 #' @param category String or numeric value inputted by user
 #'
 #' @return String indicating if region given is valid or invalid
+
 validate_category <- function(key, region, category){
   categories <- get_category_list(key, region)
   cat_vector <- c(categories$categoryId, categories$category)

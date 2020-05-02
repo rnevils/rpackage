@@ -2,7 +2,7 @@
 % Please edit documentation in R/top_titles_word_cloud.R
 \name{make_top_title_word_cloud}
 \alias{make_top_title_word_cloud}
-\title{Creates and returns a word cloud of 50 of the titles on YouTube's most popular videos}
+\title{Creates and returns a word cloud of 200 of the titles on YouTube's most popular videos}
 \usage{
 make_top_title_word_cloud(api_key, size, color, shape)
 }
@@ -19,5 +19,5 @@ make_top_title_word_cloud(api_key, size, color, shape)
 A word cloud using 200 of the titles from YouTube's most popular videos
 }
 \description{
-Creates and returns a word cloud of 50 of the titles on YouTube's most popular videos
+Creates and returns a word cloud of 200 of the titles on YouTube's most popular videos
 }
