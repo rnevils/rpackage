@@ -102,7 +102,7 @@ get_top_videos <- function(key, region = "US", category = 0, n = 10, simple = T)
   }
   return(videos)
 }
-
+#I think your function is really nicely organized and easy to follow!
 
 #' Validates region inputted by user
 #'
@@ -169,7 +169,8 @@ clean_top_videos <- function(data){
           stats)
   return(data)
 }
-
+#maybe could add some comments to this function to explain what it's doing if picky, but i think it
+#is labeled nicely for the variables
 
 #' Converts content category to YouTube id
 #'
