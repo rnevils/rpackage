@@ -10,7 +10,10 @@
 #'
 #' @export
 graph_top_videos_category <- function(key, region = "US", n = "10"){
+  # Get data for graph
   videos <- get_top_videos(key, region = region, n = n)
+
+  # Create graph
   graph <- ggplot(videos, aes(x = category, fill = category)) +
     geom_bar(stat = "count") +
     labs(x = "",
@@ -39,18 +42,30 @@ graph_top_videos_category <- function(key, region = "US", n = "10"){
 #'
 #' @export
 get_top_videos <- function(key, region = "US", category = 0, n = 10, simple = T){
+
+  # Throws error if user tries to gather too many top videos
   if (n > 200) {
     stop("n must be between 1 and 200")
   }
+
+  # Throws error if region is not acceptable
   if (validate_region(key, region) == "invalid"){
     stop("Invalid region. See get_region_list() for list of acceptable regions.")
   }
+
+  # Throws error if category is not accteptable
   region_id <- ifelse(nchar(region) != 2, region_to_id(key, region), region)
   if (validate_category(key, region_id, category) == "invalid"){
     stop("Invalid category. See get_category_list() for list of acceptable categories.")
   }
+
+  # Collects data in groups of 50 if user desires more than 50, collected just the number requested if smaller than 50
   max_n <- ifelse(n > 50, 50, n)
+
+  # Converts string category to numerical if that is how it was inputted
   category_id <- ifelse(nchar(category) > 2, category_to_id(key, category, region_id), category)
+
+  # Gathers data from YouTube API
   res <- GET(paste0("https://www.googleapis.com/youtube/v3/videos?part=statistics%2Csnippet&chart=mostPopular&regionCode=",
                     region_id,
                     "&videoCategoryId=",
@@ -60,19 +75,29 @@ get_top_videos <- function(key, region = "US", category = 0, n = 10, simple = T)
                     "&videoCategoryId=10&key=",
                     key))
   data <- fromJSON(rawToChar(res$content))
+
+  # Throws error if API key is not valid
   if (is.null(data$error$code) == F){
     stop(data$error$message)
   }
+
+  # Throws error if YouTube does not have any avaiable results for user's specified search
   if (data$pageInfo$totalResults == 0){
-    stop("No results avaliable for this search")
+    stop("YouTube had no results avaliable for this search")
   }
+
+  # Saves next page token in case there are more then 50 results
   next_page <- data$nextPageToken
+
+  # Converts list to clean data frame
   videos <- data$items %>%
     clean_top_videos() %>%
     mutate(publishedAt = as.POSIXct(trimws(gsub("[A-Z]", " ", publishedAt)), tz = "US/Pacific"),
            regionId = region_id) %>%
     left_join(get_category_list(region = region_id, key = key)) %>%
     left_join(get_region_list(key))
+
+  # Gathers 150 more results if the user asked for more than 50
   if (n > 50){
     for (i in 1:3){
       res_next <-  res <- GET(paste0("https://www.googleapis.com/youtube/v3/videos?part=statistics%2Csnippet&chart=mostPopular&regionCode=",
@@ -92,14 +117,21 @@ get_top_videos <- function(key, region = "US", category = 0, n = 10, simple = T)
                regionId = region_id) %>%
         left_join(get_category_list(region = region_id, key = key)) %>%
         left_join(get_region_list(key))
+
+      # Binds the newly collected and cleaned data with the original set collectedd
       videos <- rbind(videos, videos_next)
     }
   }
+
+  # Keeps only the number of results requested by the user
   videos <- videos[1:n,]
+
+  # Takes out thumbnail and other not commonly used data if the user requested a simple data frame
   simple_videos <- select(videos, id:description, channelTitle, tags, viewCount:commentCount, category:region)
   if (simple) {
     videos = simple_videos
   }
+
   return(videos)
 }
 
