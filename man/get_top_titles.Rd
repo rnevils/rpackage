@@ -2,7 +2,7 @@
 % Please edit documentation in R/top_titles_word_cloud.R
 \name{get_top_titles}
 \alias{get_top_titles}
-\title{Returns a list of top YouTube videos}
+\title{Returns a list of 200 titles from the most popular YouTube video pages}
 \usage{
 get_top_titles(api_key)
 }
@@ -13,5 +13,5 @@ get_top_titles(api_key)
 A list of 200 titles from the most popular YouTube video pages
 }
 \description{
-Returns a list of top YouTube videos
+Returns a list of 200 titles from the most popular YouTube video pages
 }

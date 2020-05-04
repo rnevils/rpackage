@@ -1,7 +1,7 @@
 #' Generates a plot of the number of words that contribute to different sentiments in  the top
 #' 200 YouTube titles using the NRC lexicon
 #'
-#' @param API_key A user's API key
+#' @param api_key A user's API key
 #'
 #' @return A plot of the number of words that contribute to different sentiments for the top 200 YouTube titles
 #'
@@ -36,7 +36,7 @@ titles_sentiment_type_nrc <- function(api_key){
 #' Generates a plot of top 10 words that contribute to positive and negative sentiment in the top
 #' 200 YouTube titles using the Bing lexicon
 #'
-#' @param API_key A user's API key
+#' @param api_key A user's API key
 #'
 #' @return A plot of top 10 words that contribute to positive and negative sentiment in the top 200 YouTube titles
 #'

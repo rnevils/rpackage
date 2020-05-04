@@ -40,5 +40,6 @@ Imports:
     tibble,  
     tidytext, 
     wordcloud, 
-    wordcloud2
+    wordcloud2, 
+    RColorBrewer
     
