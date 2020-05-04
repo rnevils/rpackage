@@ -88,7 +88,6 @@ get_comments <- function(api_key, video_id) {
 #' @export
 make_cloud <- function(api_key, video_id) {
   comments <- get_comments(api_key, video_id)
-
   tibble(comments) %>%
     unnest_tokens(word, comments) %>%
     anti_join(get_stopwords(), by = "word") %>%

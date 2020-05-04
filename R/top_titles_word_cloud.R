@@ -34,7 +34,7 @@ valid_api_call <- function(api_key) {
 make_top_title_word_cloud <- function(api_key, size, color, shape){
   top_titles <- get_top_titles(api_key)
   tidy_titles <- get_tidy_titles(top_titles)
-  top_titles_wordcloud <- wordcloud2(data=tidy_titles, size=as.integer(size), color=color, shape=shape)
+  top_titles_wordcloud <- wordcloud2(data=tidy_titles, size=as.numeric(size), color=color, shape=shape)
   return(top_titles_wordcloud)
 }
 
@@ -98,13 +98,17 @@ get_top_titles <- function(api_key) {
 #'
 #' @importFrom dplyr anti_join
 #' @importFrom tibble tibble
-#' @importFrom tidytext unnest_tokens
+#' @importFrom tidytext unnest_tokens get_stopwords
+
 
 get_tidy_titles <- function(titles) {
   tidy_titles <- titles %>%
   tibble(titles) %>%
   unnest_tokens(word, titles) %>% # break the titles into individual words
-  anti_join(stop_words) # data provided by the tidytext package
+  anti_join(get_stopwords(), by = "word") %>%
+  group_by(word) %>%
+  summarise(word_count = n()) %>%
+  ungroup()
   return(tidy_titles)
 }
 
