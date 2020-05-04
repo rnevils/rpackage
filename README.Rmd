@@ -48,7 +48,7 @@ key <- "AIzaSyBAbuMv8NG47mox9ebPv9QWNOxvzmQwGxs"
 
 ## Most Popular Videos Data
 
-Use the function `get_top_videos` to create a data frame of the current top trending videos on YouTube. You can specify which region and content category you are interested in.
+Use the function `get_top_videos()` to create a data frame of the current top trending videos on YouTube. You can specify which region and content category you are interested in.
 
 Overall top trending videos in the US
 ```{r, eval = F}
