@@ -173,7 +173,9 @@ clean_top_videos <- function(data){
 
 #' Converts content category to YouTube id
 #'
-#' @param region String containing content category of intrest.
+#' @param key Your YouTube API key
+#' @param category Full name of YouTube content category as string. Run get_category_list() to see list of YouTube content categories.
+#' @param region Region. Default is "US". Run get_region_list() to see list of YouTube cntent regions.
 #'
 #' @return A string of a single category id
 category_to_id <- function(key, category, region = "US"){
@@ -217,6 +219,7 @@ get_category_list <- function(key, region = "US"){
 
 #' Converts region to YouTube id
 #'
+#' @param key Your YouTube API key
 #' @param region String containing region of intrest.
 #'
 #' @return A string of a single region id
