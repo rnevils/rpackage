@@ -1,0 +1,80 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# youRtube
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of youRtube is to easily gather data and create visualizations from YouTube API data. 
+
+## Installation
+
+You can install the the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("rnevils/youRtube")
+```
+
+```{r}
+library(youRtube)
+```
+
+## Getting Started
+
+To use this package you need a YouTube API key. See [here](https://developers.google.com/youtube/v3/getting-started) for how to get a key.
+
+Save your API key as a string called "key" for easy use with the functions in the package
+
+```{r, eval = F}
+key <- "AIzaSyBAbuMv8NG47mox9ebPv9QWsuY9j3k2Ojd"
+```
+```{r, echo = F }
+key <- "AIzaSyBAbuMv8NG47mox9ebPv9QWNOxvzmQwGxs"
+```
+
+## Most Popular Videos Data
+
+Use the function `get_top_videos` to create a data frame of the current top trending videos on YouTube. You can specify which region and content category you are interested in.
+
+Overall top trending videos in the US
+```{r, eval = F}
+top50_us <- get_top_videos(key, n = 50)
+```
+Top trending music videos in Great Britian
+```{r, eval = F}
+top10_uk_music <- get_top_videos(key, region = "United Kingdom", category = "Music")
+```
+
+Use `get_region_list()` and `get_category_list()` to see YouTube's regions and content categories.
+
+```{r}
+head(get_region_list(key))
+head(get_category_list(key, region = "Sweden"))
+```
+
+Use the function `graph_top_videos_category()` to see the overall top trending videos broken down by content category.
+
+```{r, message = F}
+graph_top_videos_category(key, n = 25)
+graph_top_videos_category(key, region = "United Kingdom", n = 25)
+```
+
+The `comment_cloud` function also needs a Youtube video ID. To find the Id of a youtube video look at the url and find the last part after the **v=**
+
+For example in `https://www.youtube.com/watch?v=QjA5faZF1A8` the Id would be `QjA5faZF1A8`
+
+
