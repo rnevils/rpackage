@@ -116,6 +116,7 @@ Additionally, you can use `titles_sentiment_contribution_bing()` to generate a p
 ```{r}
 titles_sentiment_contribution_bing(api_key)
 ```
+
 ## Word Cloud from YouTube Titles 
 
 Use `make_top_title_word_cloud()` to make a word cloud of 200 of the titles on YouTube's most popular videos. In addition to an API key, this function allows you to input custom parameters for the size, color and shape of the title word cloud. 
