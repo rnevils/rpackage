@@ -39,9 +39,9 @@ key <- "AIzaSyBAbuMv8NG47mox9ebPv9QWsuY9j3k2Ojd"
 
 ## Most Popular Videos Data
 
-Use the function `get_top_videos` to create a data frame of the current
-top trending videos on YouTube. You can specify which region and content
-category you are interested in.
+Use the function `get_top_videos()` to create a data frame of the
+current top trending videos on YouTube. You can specify which region and
+content category you are interested in.
 
 Overall top trending videos in the US
 
@@ -93,9 +93,21 @@ graph_top_videos_category(key, region = "United Kingdom", n = 25)
 
 <img src="man/figures/README-unnamed-chunk-8-2.png" width="100%" />
 
-The `comment_cloud` function also needs a Youtube video ID. To find the
-Id of a youtube video look at the url and find the last part after the
-**v=**
+## Word Cloud from Youtube Comments
+
+use the `make_cloud()` function to create a word cloud of all the
+comments for a particular video.
+
+In addition to the API key, `make_cloud()` also needs a Youtube video
+ID. To find the Id of a youtube video look at the url and find the last
+part after the **v=**
 
 For example in `https://www.youtube.com/watch?v=QjA5faZF1A8` the Id
 would be `QjA5faZF1A8`
+
+``` r
+video_id = "QjA5faZF1A8"
+make_cloud("AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE", video_id)
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />

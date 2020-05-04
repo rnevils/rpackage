@@ -43,7 +43,7 @@ Save your API key as a string called "key" for easy use with the functions in th
 key <- "AIzaSyBAbuMv8NG47mox9ebPv9QWsuY9j3k2Ojd"
 ```
 ```{r, echo = F }
-key <- "AIzaSyBAbuMv8NG47mox9ebPv9QWNOxvzmQwGxs"
+key = "AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE"
 ```
 
 ## Most Popular Videos Data
@@ -73,8 +73,28 @@ graph_top_videos_category(key, n = 25)
 graph_top_videos_category(key, region = "United Kingdom", n = 25)
 ```
 
-The `comment_cloud` function also needs a Youtube video ID. To find the Id of a youtube video look at the url and find the last part after the **v=**
+
+## Word Cloud from Youtube Comments
+
+use the `make_cloud()` function to create a word cloud of all the comments for a particular video.
+
+In addition to the API key, `make_cloud()` also needs a Youtube video ID. To find the Id of a youtube video look at the url and find the last part after the **v=**
 
 For example in `https://www.youtube.com/watch?v=QjA5faZF1A8` the Id would be `QjA5faZF1A8`
+
+
+```{r, include=FALSE}
+key = "AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE"
+```
+
+```{r}
+video_id = "QjA5faZF1A8"
+make_cloud("AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE", video_id)
+```
+
+
+
+
+
 
 
