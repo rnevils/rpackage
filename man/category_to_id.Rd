@@ -7,7 +7,11 @@
 category_to_id(key, category, region = "US")
 }
 \arguments{
-\item{region}{String containing content category of intrest.}
+\item{key}{Your YouTube API key}
+
+\item{category}{Full name of YouTube content category as string. Run get_category_list() to see list of YouTube content categories.}
+
+\item{region}{Region. Default is "US". Run get_region_list() to see list of YouTube cntent regions.}
 }
 \value{
 A string of a single category id

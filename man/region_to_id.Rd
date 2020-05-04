@@ -7,6 +7,8 @@
 region_to_id(key, region)
 }
 \arguments{
+\item{key}{Your YouTube API key}
+
 \item{region}{String containing region of intrest.}
 }
 \value{
