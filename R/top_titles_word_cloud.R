@@ -18,7 +18,7 @@ valid_api_call <- function(api_key) {
 
 #' Creates and returns a word cloud of 200 of the titles on YouTube's most popular videos
 #'
-#' @param API_key A user's API key
+#' @param api_key A user's API key
 #' @param size The size of the title word cloud to be returned
 #' @param color The color of the title word cloud to be returned
 #' @param shape The shape fo the title word cloud to be returned
@@ -91,7 +91,7 @@ get_top_titles <- function(api_key) {
 
 #' Creates a list of cleaned list of YouTube video titles for word cloud and sentiment analysis
 #'
-#' @param A list of YouTube videos titles to be cleaned
+#' @param titles list of YouTube videos titles to be cleaned
 #'
 #' @return A cleaned list of YouTube titles
 #'

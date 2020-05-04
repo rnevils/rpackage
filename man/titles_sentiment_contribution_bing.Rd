@@ -8,7 +8,7 @@
 titles_sentiment_contribution_bing(api_key)
 }
 \arguments{
-\item{API_key}{A user's API key}
+\item{api_key}{A user's API key}
 }
 \value{
 A plot of top 10 words that contribute to positive and negative sentiment in the top 200 YouTube titles

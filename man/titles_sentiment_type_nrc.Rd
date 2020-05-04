@@ -8,7 +8,7 @@
 titles_sentiment_type_nrc(api_key)
 }
 \arguments{
-\item{API_key}{A user's API key}
+\item{api_key}{A user's API key}
 }
 \value{
 A plot of the number of words that contribute to different sentiments for the top 200 YouTube titles
