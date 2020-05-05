@@ -7,7 +7,7 @@
 get_tidy_titles(titles)
 }
 \arguments{
-\item{A}{list of YouTube videos titles to be cleaned}
+\item{titles}{list of YouTube videos titles to be cleaned}
 }
 \value{
 A cleaned list of YouTube titles

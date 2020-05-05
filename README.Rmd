@@ -1,5 +1,6 @@
 ---
 output: github_document
+always_allow_html: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -89,12 +90,42 @@ key = "AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE"
 
 ```{r}
 video_id = "QjA5faZF1A8"
-make_cloud("AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE", video_id)
+make_cloud(key, video_id)
+```
+
+## Sentiment analysis of YouTube Titles 
+
+Use `get_top_titles()` to returns a list of 200 titles from the most popular YouTube video pages using your API key. 
+
+```{r, include=FALSE}
+api_key = "AIzaSyA1sCzxpFiBw6SG16MsWPE872_W4XfMRlE"
 ```
 
 
+```{r}
+head(get_top_titles(api_key))
+```
 
+Use `titles_sentiment_type_nrc()` to generates a plot of the number of words that contribute to different sentiments in  the top 200 YouTube titles using the NRC lexicon. 
+ 
+```{r}
+titles_sentiment_type_nrc(api_key)
+```
 
+Additionally, you can use `titles_sentiment_contribution_bing()` to generate a plot of the top 10 words that contribute to positive and negative sentiment in the top 200 YouTube titles using the Bing lexicon. 
 
+```{r}
+titles_sentiment_contribution_bing(api_key)
+```
+
+## Word Cloud from YouTube Titles 
+
+Use `make_top_title_word_cloud()` to make a word cloud of 200 of the titles on YouTube's most popular videos. In addition to an API key, this function allows you to input custom parameters for the size, color and shape of the title word cloud. For more infomration on size, color and shape parameter options [Wordcloud2](https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html). 
+
+```{r}
+make_top_title_word_cloud(api_key, size =1, color="random-light", shape = "circle")
+```
+
+![an image caption Source: Wordcloud2 ouputs an interactive wordcloud of the top titles and counts; for reference, we've included a static image of the output.](/Users/allieblaising/Desktop/wordcloud2-example.png)
 
 

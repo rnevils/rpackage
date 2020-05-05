@@ -1,7 +1,7 @@
 #' Generates a plot of the number of words that contribute to different sentiments in  the top
 #' 200 YouTube titles using the NRC lexicon
 #'
-#' @param API_key A user's API key
+#' @param api_key A user's API key
 #'
 #' @return A plot of the number of words that contribute to different sentiments for the top 200 YouTube titles
 #'
@@ -36,18 +36,18 @@ titles_sentiment_type_nrc <- function(api_key){
 #' Generates a plot of top 10 words that contribute to positive and negative sentiment in the top
 #' 200 YouTube titles using the Bing lexicon
 #'
-#' @param API_key A user's API key
+#' @param api_key A user's API key
 #'
 #' @return A plot of top 10 words that contribute to positive and negative sentiment in the top 200 YouTube titles
 #'
-#' @importFrom ggplot2 ggplot geom_bar geom_col labs coord_flip theme aes element_blank element_rect element_line coord_flip facet_wrap
+#' @importFrom dplyr top_n
+#' @importFrom ggplot2 ggtitle ggplot geom_bar geom_col labs coord_flip theme_gray theme aes element_blank element_rect element_line coord_flip facet_wrap
 #'
 #' @export
 
 titles_sentiment_contribution_bing <- function(api_key){
   top_titles <- get_top_titles(api_key)
-  tidy_titles <- get_tidy_titles(top_titles)
-  bing_word_counts <- tidy_titles  %>%
+  bing_word_counts <- top_titles  %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment, sort = TRUE) %>%
   ungroup()

@@ -18,7 +18,7 @@ valid_api_call <- function(api_key) {
 
 #' Creates and returns a word cloud of 200 of the titles on YouTube's most popular videos
 #'
-#' @param API_key A user's API key
+#' @param api_key A user's API key
 #' @param size The size of the title word cloud to be returned
 #' @param color The color of the title word cloud to be returned
 #' @param shape The shape fo the title word cloud to be returned
@@ -28,16 +28,17 @@ valid_api_call <- function(api_key) {
 #' @importFrom httr GET
 #' @importFrom jsonlite fromJSON
 #' @importFrom wordcloud2 wordcloud2
+#'
 #' @export
 
 make_top_title_word_cloud <- function(api_key, size, color, shape){
   top_titles <- get_top_titles(api_key)
   tidy_titles <- get_tidy_titles(top_titles)
-  top_titles_wordcloud <- wordcloud2(data=tidy_titles, size=size, color=color, shape=shape)
+  top_titles_wordcloud <- wordcloud2(data=tidy_titles, size=as.numeric(size), color=color, shape=shape)
   return(top_titles_wordcloud)
 }
 
-#' Returns a list of top YouTube videos
+#' Returns a list of 200 titles from the most popular YouTube video pages
 #'
 #' @param api_key a user's API key
 #'
@@ -91,19 +92,23 @@ get_top_titles <- function(api_key) {
 
 #' Creates a list of cleaned list of YouTube video titles for word cloud and sentiment analysis
 #'
-#' @param A list of YouTube videos titles to be cleaned
+#' @param titles list of YouTube videos titles to be cleaned
 #'
 #' @return A cleaned list of YouTube titles
 #'
 #' @importFrom dplyr anti_join
 #' @importFrom tibble tibble
-#' @importFrom tidytext unnest_tokens
+#' @importFrom tidytext unnest_tokens get_stopwords
+
 
 get_tidy_titles <- function(titles) {
   tidy_titles <- titles %>%
   tibble(titles) %>%
   unnest_tokens(word, titles) %>% # break the titles into individual words
-  anti_join(stop_words) # data provided by the tidytext package
+  anti_join(get_stopwords(), by = "word") %>%
+  group_by(word) %>%
+  summarise(word_count = n()) %>%
+  ungroup()
   return(tidy_titles)
 }
 
